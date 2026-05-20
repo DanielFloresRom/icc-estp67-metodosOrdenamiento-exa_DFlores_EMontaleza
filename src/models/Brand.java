@@ -14,25 +14,22 @@ public class Brand {
         return brandName;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
-
     public CarModel[] getModels() {
         return models;
     }
 
-    public void setModels(CarModel[] models) {
-        this.models = models;
-    }
-
+    // 🔥 ESTE MÉTODO DEFINE TODO EL EXAMEN
     public int getTotalValidYears() {
         int total = 0;
 
-        for (CarModel m : models) {
-            for (CarYear y : m.getYears()) {
-                if (y.isValid()) {
-                    total++;
+        if (models == null) return 0;
+
+        for (CarModel model : models) {
+            if (model.getYears() != null) {
+                for (CarYear year : model.getYears()) {
+                    if (year.isValid()) {
+                        total++;
+                    }
                 }
             }
         }
@@ -42,6 +39,6 @@ public class Brand {
 
     @Override
     public String toString() {
-        return brandName + " - Años válidos: " + getTotalValidYears();
+        return "Marca: " + brandName + ", Total de años válidos: " + getTotalValidYears();
     }
 }

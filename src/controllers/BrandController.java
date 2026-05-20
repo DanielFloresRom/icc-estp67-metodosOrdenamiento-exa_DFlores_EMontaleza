@@ -4,64 +4,66 @@ import models.Brand;
 
 public class BrandController {
 
-    // 🔥 Bubble Sort DESCENDENTE (Fila D)
-    public void sortBubbleDesc(Brand[] brands) {
+  public Brand[] sortBubbleDesc(Brand[] brands) {
 
-        int n = brands.length;
-        boolean swapped;
+    int n = brands.length;
+    boolean swapped;
 
-        for (int i = 0; i < n - 1; i++) {
-            swapped = false;
+    for (int i = 0; i < n - 1; i++) {
+      swapped = false;
 
-            for (int j = 0; j < n - i - 1; j++) {
+      for (int j = 0; j < n - i - 1; j++) {
 
-                if (brands[j].getTotalValidYears() < brands[j + 1].getTotalValidYears()) {
+        int actual = brands[j].getTotalValidYears();
+        int siguiente = brands[j + 1].getTotalValidYears();
 
-                    Brand temp = brands[j];
-                    brands[j] = brands[j + 1];
-                    brands[j + 1] = temp;
-
-                    swapped = true;
-                }
-            }
-
-            if (!swapped) break; // 🔥 optimización
+        if (actual < siguiente) {
+          Brand temp = brands[j];
+          brands[j] = brands[j + 1];
+          brands[j + 1] = temp;
+          swapped = true;
         }
+      }
+
+      if (!swapped)
+        break;
     }
 
-    // 🔥 Búsqueda binaria
-    public Brand binarySearchByValidYears(
-            Brand[] brands,
-            int validYears,
-            boolean isAscending) {
+    return brands;
+  }
 
-        int left = 0;
-        int right = brands.length - 1;
+  public Brand binarySearchByValidYears(
+      Brand[] brands,
+      int validYears,
+      boolean isAscending) {
 
-        while (left <= right) {
+    int left = 0;
+    int right = brands.length - 1;
 
-            int mid = (left + right) / 2;
-            int midValue = brands[mid].getTotalValidYears();
+    while (left <= right) {
 
-            if (midValue == validYears) {
-                return brands[mid];
-            }
+      int mid = (left + right) / 2;
+      int midValue = brands[mid].getTotalValidYears();
 
-            if (isAscending) {
-                if (midValue < validYears) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
-            } else { // DESC
-                if (midValue > validYears) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
-            }
+      if (midValue == validYears) {
+        return brands[mid];
+      }
+
+      if (isAscending) {
+        if (midValue < validYears) {
+          left = mid + 1;
+        } else {
+          right = mid - 1;
         }
-
-        return null;
+      } else { // DESCENDENTE
+        if (midValue > validYears) {
+          left = mid + 1;
+        } else {
+          right = mid - 1;
+        }
+      }
     }
+
+    return null;
+  }
 }
