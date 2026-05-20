@@ -55,7 +55,7 @@ public class BrandController {
         } else {
           right = mid - 1;
         }
-      } else { // DESCENDENTE
+      } else {
         if (midValue > validYears) {
           left = mid + 1;
         } else {
